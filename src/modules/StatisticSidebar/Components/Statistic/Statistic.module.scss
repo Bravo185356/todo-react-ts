@@ -1,0 +1,19 @@
+.statBlock {
+    background-color: rgb(245, 245, 245);
+    height: 100%;
+    padding: 20px;
+    color: rgb(34, 34, 34);
+    display: flex;
+    flex-direction: column;
+    row-gap: 15px;
+    border-left: 1px solid rgb(197, 197, 197);
+}
+.success {
+    letter-spacing: 1px;
+    font-size: 18px;
+    
+}
+.lvlBlock {
+    display: grid;
+    row-gap: 5px;
+}

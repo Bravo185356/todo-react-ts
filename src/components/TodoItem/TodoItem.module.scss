@@ -1,0 +1,28 @@
+.todoWrapper {
+    position: relative;
+    box-shadow: 0px 0px 10px rgb(196, 196, 196);
+    border-radius: 10px;
+    padding: 20px;
+    flex: 0 1 600px;
+    gap: 20px;
+}
+.todoInfo {
+    display: grid;
+    gap: 5px;
+    color: rgb(34, 34, 34);
+    letter-spacing: 1px;
+    margin-bottom: 15px;
+}
+.confirmText {
+    font-size: 20px;
+}
+.buttonsBlock {
+    display: grid;
+    margin-top: 15px;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 30px;
+}
+.changeNameBlock {
+    display: flex;
+    column-gap: 10px;
+}

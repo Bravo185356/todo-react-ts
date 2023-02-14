@@ -1,0 +1,1 @@
+export {RegistrationForm} from './Components/RegistrationForm/RegistrationForm'

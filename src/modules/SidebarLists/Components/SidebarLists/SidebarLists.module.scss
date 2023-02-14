@@ -1,0 +1,55 @@
+.body {
+    background-color: rgb(245, 245, 245);
+    height: 100%;
+    padding: 20px;
+    border-right: 1px solid rgb(197, 197, 197);
+}
+.list {
+    display: grid;
+    justify-items: start;
+    margin: 10px 0px;
+}
+.listItem {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+.deleteIcon {
+    cursor: pointer;
+    &:hover {
+        transition: color 0.3s ease;
+        color: red;
+    }
+}
+.link {
+    display: inline-block;
+    color: rgb(34, 34, 34);
+    text-decoration: none;
+    letter-spacing: 1px;
+    font-size: 18px;
+    transition: color 0.2s ease;
+    flex: 1 1 auto;
+    &:hover {
+        color: red;
+    }
+    &:active {
+        color: red;
+    }
+}
+.linkActive {
+    color: red;
+}
+.completedLink {
+    text-decoration: none;
+    color: rgb(34, 34, 34);
+    margin-top: 10px;
+}
+.linksBlock {
+    border-top: 1px solid rgb(197, 197, 197);
+    padding-top: 10px;
+    margin-top: 10px;
+}
+.title {
+    font-size: 20px;
+}
