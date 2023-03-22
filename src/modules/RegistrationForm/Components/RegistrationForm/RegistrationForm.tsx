@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Modal, Box, Input, Button } from "@mui/material";
-import { modalStyles } from "../../../../components/TodoItem/MuiStyles";
+import { modalStyles } from "../../../../MuiStyles";
 import { RegistrationApi } from "../../API/Api";
 
 interface RegistrationFormProps {
@@ -12,7 +12,7 @@ export const RegistrationForm = function ({ registrationPopup, setRegistrationPo
   const [registrationInputs, setRegistrationInputs] = useState({ password: "", email: "" });
   return (
     <Modal onClose={() => setRegistrationPopup(false)} open={registrationPopup}>
-      <Box sx={{ ...modalStyles, width: 400 }}>
+      <Box sx={{ ...modalStyles, width: { sm: 400, xs: 0.9 / 1 } }}>
         <Input
           sx={{ width: "100%", marginBottom: 2 }}
           onChange={(e) => setRegistrationInputs({ ...registrationInputs, email: e.target.value })}

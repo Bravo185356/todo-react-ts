@@ -12,6 +12,7 @@ import { setUserInfo, toggleLogin } from "./store/userInfo/userInfoSlice";
 import { RegistrationForm } from "./modules/RegistrationForm";
 import { LoginForm, LoginApi } from "./modules/LoginForm";
 import TodoListPage from "./pages/TodoListPage/Components/TodoListPage/TodoListPage";
+import {changeScreenWidth} from "./store/screenWidth/screenWidthSlice";
 
 export default function App() {
   const [loginPopup, setLoginPopup] = useState(false);
@@ -23,14 +24,17 @@ export default function App() {
 
   useEffect(() => {
     const cb = async () => {
-      const result = await LoginApi.getInfo(JSON.parse(localStorage.getItem("idToken")!));
+      const result = await LoginApi.getInfo(localStorage.getItem("idToken")!);
       if (result) {
         dispatch(setUserInfo(result.users[0]));
         dispatch(toggleLogin());
       }
+      dispatch(changeScreenWidth())
       setPageIsLoaded(true);
+      window.addEventListener("resize", () => dispatch(changeScreenWidth()));
     };
     cb();
+    return () => window.removeEventListener("resize", () => dispatch(changeScreenWidth()));
   }, []);
   useEffect(() => {
     if (localStorage.getItem("todos")) {

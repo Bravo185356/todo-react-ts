@@ -1,0 +1,38 @@
+.datePickerWrapper {
+    flex: 1 1 auto;
+}
+.datePickerBlock {
+    max-width: 400px;
+    background-color: rgb(226, 226, 226);
+    border-radius: 6px;
+    padding: 10px;
+    text-align: center;
+}
+.listsBlock {
+    margin: 10px 0px;
+}
+.selectedDate {
+    font-size: 18px;
+    cursor: pointer;
+}
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.currentDate {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+}
+.monthControlButtons {
+    display: flex;
+    gap: 7px;
+}
+.controlButton {
+    font-size: 24px;
+    background-color: inherit;
+    border: 0;
+    cursor: pointer;
+}
+

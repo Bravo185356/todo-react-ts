@@ -15,7 +15,6 @@ const userInfo = createSlice({
     initialState,
     reducers: {
         setUserInfo(state, actions) {
-            console.log(actions.payload)
             state.userInfo = actions.payload
         },
         toggleLogin(state) {

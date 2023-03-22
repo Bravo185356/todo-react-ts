@@ -1,0 +1,21 @@
+.link {
+    display: inline-block;
+    color: rgb(34, 34, 34);
+    text-decoration: none;
+    letter-spacing: 1px;
+    font-size: 18px;
+    transition: color 0.2s ease;
+    flex: 1 1 auto;
+    &:hover,
+    &:active,
+    &Active {
+        color: red;
+    }
+}
+.deleteIcon {
+    cursor: pointer;
+    &:hover {
+        transition: color 0.3s ease;
+        color: red;
+    }
+}

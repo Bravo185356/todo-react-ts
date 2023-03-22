@@ -1,0 +1,27 @@
+.days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+}
+.weekDays {
+    display: flex;
+    margin-bottom: 4px;
+    & .weekDay {
+        flex: 0 1 calc(100% / 7);
+        background-color: gray;
+        padding: 4px;
+    }
+}
+.dayNumber {
+    padding: 4px;
+    cursor: pointer;
+    &:hover {
+        background-color: white;
+        border-radius: 6px;
+    }
+    &Current {
+        color: red;
+    }
+    &Selected {
+        color: green;
+    }
+}

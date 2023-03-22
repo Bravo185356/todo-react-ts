@@ -5,7 +5,7 @@ import { ITodo } from "../../models";
 import { MoreVert, Check } from "@mui/icons-material";
 import { Input, Button, MenuItem, Menu, IconButton, Modal, Box } from "@mui/material";
 import { increaseLevelCount } from "../../store/statistic/statisticSlice";
-import { modalStyles, settingButtonStyles } from "./MuiStyles";
+import { modalStyles, settingButtonStyles } from "../../MuiStyles";
 import { changeTodo, removeTodo, setExpired } from "../../store/todo/todoSlice";
 import { toggleComplete } from "../../store/todo/todoSlice";
 
@@ -15,7 +15,7 @@ interface TodoItemProps {
   optionMenu?: Boolean;
 }
 
-export const TodoItem = function({ todo, listName = '', optionMenu = true }: TodoItemProps) {
+export const TodoItem = function ({ todo, listName = "", optionMenu = true }: TodoItemProps) {
   const [isExpired, setIsExpired] = useState(false);
   const [optionsMenu, setOptionsMenu] = useState<null | HTMLElement>(null);
   const [modalShow, setModalShow] = useState(false);
@@ -24,16 +24,16 @@ export const TodoItem = function({ todo, listName = '', optionMenu = true }: Tod
   // Двусторонее связывание с изменяющим название инпутом
   const open = Boolean(optionsMenu);
   const dispatch = useAppDispatch();
+
   useEffect(() => {
-    if(todo.isExpired) {
-      console.log('isExpired')
-      setIsExpired(true)
-      return
+    if (todo.isExpired) {
+      setIsExpired(true);
+      return;
     }
     const timerID = setInterval(() => checkDeadline(), 5000);
-    console.log(timerID)
     return () => clearInterval(timerID);
   }, [todo.isExpired]);
+
   function changeCompletedStatus() {
     dispatch(increaseLevelCount());
     dispatch(toggleComplete({ todo, listName }));
@@ -44,7 +44,7 @@ export const TodoItem = function({ todo, listName = '', optionMenu = true }: Tod
       setModalShow(true);
     }
   }
-  function edit() {
+  function toggleEdit() {
     setEditTodo(true);
     setOptionsMenu(null);
   }
@@ -53,18 +53,13 @@ export const TodoItem = function({ todo, listName = '', optionMenu = true }: Tod
     dispatch(changeTodo({ listName, newTodoName: todoName, todo: todo }));
   }
   function convertDate() {
-    return (
-      todo.deadline!.split(" ")[0].split(".").reverse().join("-") +
-      "T" +
-      todo.deadline!.split(" ")[1]
-    );
+    return todo.deadline!.split(",")[0].split(".").reverse().join("-") + "T" + todo.deadline!.split(" ")[1];
   }
   function checkDeadline() {
     if (todo.deadline) {
-      console.log('deadline')
       const date = convertDate();
       if (Date.parse(date) <= Date.now()) {
-        dispatch(setExpired({listName, todo}))
+        dispatch(setExpired({ listName, todo }));
       }
     }
   }
@@ -72,38 +67,27 @@ export const TodoItem = function({ todo, listName = '', optionMenu = true }: Tod
   return (
     <div className={classes.todoWrapper}>
       <div className={classes.todoInfo}>
-        {isExpired && <div>Просрочено</div>}
+        {isExpired && <div className={classes.expired}>Просрочено</div>}
         {editTodo ? (
           <div className={classes.changeNameBlock}>
             <Input onChange={(e) => setTodoName(e.target.value)} value={todoName} />
-            <Button
-              variant="contained"
-              sx={{ color: "white", p: "0", minWidth: "34px" }}
-              onClick={saveChanges}
-            >
+            <Button variant="contained" sx={{ color: "white", p: "0", minWidth: "34px" }} onClick={saveChanges}>
               <Check />
             </Button>
           </div>
         ) : (
           <div className={classes.todoName}>Название: {todo.name}</div>
         )}
-        {todo.deadline && (
-          <div className={classes.todoDeadline}>{`Дедлайн: ${todo.deadline}`}</div>
-        )}
+        {todo.deadline && <div className={classes.todoDeadline}>{`Дедлайн: ${todo.deadline}`}</div>}
       </div>
       {optionMenu && (
         <>
-          <IconButton
-            sx={settingButtonStyles}
-            onClick={(e) => setOptionsMenu(e.currentTarget)}
-          >
+          <IconButton sx={settingButtonStyles} onClick={(e) => setOptionsMenu(e.currentTarget)}>
             <MoreVert fontSize="large" />
           </IconButton>
           <Menu anchorEl={optionsMenu} onClose={() => setOptionsMenu(null)} open={open}>
-            <MenuItem onClick={edit}>Редактировать</MenuItem>
-            <MenuItem onClick={() => dispatch(removeTodo({ listName, todo }))}>
-              Удалить
-            </MenuItem>
+            <MenuItem onClick={toggleEdit}>Редактировать</MenuItem>
+            <MenuItem onClick={() => dispatch(removeTodo({ listName, todo }))}>Удалить</MenuItem>
           </Menu>
         </>
       )}
@@ -116,10 +100,8 @@ export const TodoItem = function({ todo, listName = '', optionMenu = true }: Tod
         {todo.completed ? "Выполнено" : "Не выполнено"}
       </Button>
       <Modal onClose={() => setModalShow(false)} open={modalShow}>
-        <Box sx={modalStyles}>
-          <div className={classes.confirmText}>
-            Вы действительно хотите пометить это задание, как выполненное?
-          </div>
+        <Box sx={{ ...modalStyles, width: { sm: 400, xs: 0.9 / 1 } }}>
+          <div className={classes.confirmText}>Пометить это задание, как выполненное?</div>
           <div className={classes.buttonsBlock}>
             <Button variant="contained" onClick={changeCompletedStatus}>
               Да
@@ -132,4 +114,4 @@ export const TodoItem = function({ todo, listName = '', optionMenu = true }: Tod
       </Modal>
     </div>
   );
-}
+};

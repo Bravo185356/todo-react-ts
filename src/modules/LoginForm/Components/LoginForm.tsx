@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Modal, Box, Input, Button } from "@mui/material";
-import { modalStyles } from "../../../components/TodoItem/MuiStyles";
+import { modalStyles } from "../../../MuiStyles";
 import { LoginApi } from "../API/Api";
 import { validation } from "../../../service/validation";
 import { setUserInfo, toggleLogin } from "../../../store/userInfo/userInfoSlice";
@@ -14,12 +14,12 @@ interface LoginFormProps {
 
 export const LoginForm = function ({ loginPopup, setLoginPopup, setRegistrationPopup }: LoginFormProps) {
   const [loginInputs, setLoginInputs] = useState({ email: "", password: "" });
-  const [loginInputsError, setLoginInputsError] = useState({email: false, password: false})
-  const dispatch = useAppDispatch()
+  const [loginInputsError, setLoginInputsError] = useState({ email: false, password: false });
+  const dispatch = useAppDispatch();
 
   async function loginIn() {
     const [email, password] = validation(loginInputs);
-    
+
     if (email && password) {
       const result = await LoginApi.login(loginInputs);
       if (!result.error) {
@@ -29,18 +29,18 @@ export const LoginForm = function ({ loginPopup, setLoginPopup, setRegistrationP
         const userInfo = await LoginApi.getInfo(result.idToken);
 
         dispatch(setUserInfo(userInfo.users[0]));
-        dispatch(toggleLogin())
+        dispatch(toggleLogin());
 
-        setLoginPopup(false)
+        setLoginPopup(false);
       }
     } else {
       // неверная валидация вернет [false, false], а для стилей ошибки нужно передать true
-      setLoginInputsError({email: !email, password: !password})
+      setLoginInputsError({ email: !email, password: !password });
     }
   }
   return (
     <Modal onClose={() => setLoginPopup(false)} open={loginPopup}>
-      <Box sx={{ ...modalStyles, width: 400 }}>
+      <Box sx={{ ...modalStyles, width: { sm: 400, xs: 0.9 / 1 } }}>
         <Input
           error={loginInputsError.email}
           sx={{ width: "100%", marginBottom: 2 }}

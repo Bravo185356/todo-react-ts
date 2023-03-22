@@ -1,4 +1,7 @@
 @import '@fontsource/roboto';
+
+$headerHeight: 60px;
+
 * {
     margin: 0;
     padding: 0;
@@ -6,21 +9,24 @@
     font-family: Roboto;
     list-style: none;
 }
+body,
+#root {
+    height: 100vh;
+}
 .App {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
+    display: grid;
+    grid-template: $headerHeight 1fr / 1fr;
 }
 .wrapper {
-    flex: 1 1 auto;
-    display: grid;
-    align-items: start;
-    grid-template: 1fr / minmax(50px, 300px) 1fr minmax(50px, 300px);
+    display: flex;
+    height: calc(100vh - $headerHeight);
+    justify-content: space-between;
 }
 .content-wrapper {
+    display: flex;
+    justify-content: center;
+    flex: 1 1 auto;
     padding: 20px 60px;
-    grid-column-start: 2;
-    grid-column-end: 3;
 }
 .registrationBlock {
     display: flex;
@@ -31,4 +37,20 @@
 .createAccount {
     color: rgb(73, 73, 241);
     cursor: pointer;
+}
+.mainBlock {
+    flex: 0 1 768px;
+}
+@media (max-width: 768px) {
+    .content-wrapper {
+        padding: 20px 30px;
+    }   
+}
+@media (max-width: 600px) {
+    .wrapper {
+        flex-direction: column;
+    }
+    .content-wrapper {
+        padding: 20px;
+    }
 }

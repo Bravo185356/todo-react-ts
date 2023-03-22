@@ -17,7 +17,6 @@ export class LoginApi {
       }),
     });
     const data = await response.json();
-    console.log(data)
     return data;
   }
   static async getInfo(idToken: string) {
@@ -32,9 +31,8 @@ export class LoginApi {
         }),
       });
       const data = await response.json();
-      console.log(data)
       if (data.error) {
-        this.exchangeToken(JSON.parse(localStorage.getItem("refreshToken")!));
+        this.exchangeToken(localStorage.getItem("refreshToken")!);
       } else {
         return data;
       }
@@ -52,7 +50,6 @@ export class LoginApi {
       }),
     });
     const newTokens = await response.json();
-    console.log(newTokens)
     if(newTokens.error) {
         console.log('refresh expired')
         return

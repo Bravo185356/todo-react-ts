@@ -1,8 +1,7 @@
 .header {
-    display: flex;
+    display: grid;
+    grid-template: 1fr / repeat(3, 1fr);
     align-items: center;
-    justify-content: space-between;
-    height: 50px;
     background-color: rgb(241, 241, 241);
     border-bottom: 1px solid rgb(197, 197, 197);
     padding: 0px 20px;
@@ -13,12 +12,17 @@
     letter-spacing: 1.2px;
     cursor: pointer;
 }
+.authBlock {
+    justify-self: end;
+    grid-column-start: 3;
+}
 .title {
     color: rgb(34, 34, 34);
     text-transform: uppercase;
     font-weight: 600;
     letter-spacing: 2px;
     text-decoration: none;
-    flex: 0 0 55%;
-    text-align: right;
+    text-align: center;
+    grid-column-start: 2;
+    grid-column-end: 3;
 }

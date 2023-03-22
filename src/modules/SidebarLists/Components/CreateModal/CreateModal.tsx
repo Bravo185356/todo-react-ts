@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Modal, Box, Input, Button } from "@mui/material";
-import { modalStyles } from "../../../../components/TodoItem/MuiStyles";
+import { modalStyles } from "../../../../MuiStyles";
 import { useAppDispatch } from "../../../../hooks/hooks";
 import { addTodoList } from "../../../../store/todo/todoSlice";
 
@@ -20,7 +20,7 @@ export default function CreateModal({ showCreateListModal, setShowCreateListModa
   }
   return (
     <Modal onClose={() => setShowCreateListModal(false)} open={showCreateListModal}>
-      <Box sx={{ ...modalStyles, width: 400 }}>
+      <Box sx={{ ...modalStyles, width: { sm: 400, xs: 0.9 / 1 } }}>
         <Input
           sx={{ width: "100%", marginBottom: 2 }}
           onChange={(e) => setNewListName(e.target.value)}

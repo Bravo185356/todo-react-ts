@@ -1,29 +1,27 @@
 import { useState } from "react";
-import dayjs, { Dayjs } from "dayjs";
-import { Input, Switch, Button, FormControlLabel, TextField, Modal, Box } from "@mui/material";
+import { Input, Switch, Button, FormControlLabel, Modal, Box } from "@mui/material";
 import classes from "./CreateTodo.module.scss";
-import { LocalizationProvider, DateTimePicker } from "@mui/x-date-pickers";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { FormingDate } from "../../../../modules/Todos/helpers/FormingDate";
 import { ITodo } from "../../../../models";
 import { addNewTodo } from "../../../../store/todo/todoSlice";
 import { useDispatch } from "react-redux";
-import { modalStyles } from "../../../../components/TodoItem/MuiStyles";
+import { modalStyles } from "../../../../MuiStyles";
+import DatePicker from "../../../../modules/DatePicker/DatePicker";
 
 interface InputProps {
   listName: string;
   showModal: boolean;
-  setShowModal: Function
+  setShowModal: Function;
 }
 
 export const CreateTodo = function ({ listName, showModal, setShowModal }: InputProps) {
   const [showDeadlineInputs, setShowDeadlineInputs] = useState(false);
   const [inputName, setInputName] = useState("");
-  const [deadlineInput, setDeadlineInput] = useState<Dayjs | null>(dayjs(null));
+  const [deadlineInput, setDeadlineInput] = useState("");
+  const [datePickerVisible, setDatePickerVisible] = useState(false);
   const dispatch = useDispatch();
 
   function createNewTodo() {
-    let deadline = deadlineInput!.isValid() ? FormingDate(deadlineInput!) : null;
+    let deadline = showDeadlineInputs ? deadlineInput : null;
 
     const newTodo: ITodo = {
       id: Date.now(),
@@ -35,12 +33,20 @@ export const CreateTodo = function ({ listName, showModal, setShowModal }: Input
 
     dispatch(addNewTodo({ listName, newTodo }));
     setInputName("");
-    setDeadlineInput(dayjs(null));
+    setDeadlineInput("");
+    
+  }
+
+  function closeModal() {
+    setDeadlineInput('')
+    setInputName('')
+    setShowDeadlineInputs(false)
+    setShowModal(false)
   }
 
   return (
-    <Modal onClose={() => setShowModal(false)} open={showModal}>
-      <Box sx={{ ...modalStyles, width: 400 }}>
+    <Modal onClose={() => closeModal()} open={showModal}>
+      <Box sx={{ ...modalStyles, width: { sm: 400, xs: 0.9 / 1 } }}>
         <div className={classes.wrapper}>
           <div className={classes.body}>
             <div className={classes.title}>Добавьте что-нибудь в список</div>
@@ -54,7 +60,10 @@ export const CreateTodo = function ({ listName, showModal, setShowModal }: Input
             />
             <div className={classes.deadlineBlock}>
               <FormControlLabel
-                onChange={() => setShowDeadlineInputs(!showDeadlineInputs)}
+                onChange={() => {
+                  setDatePickerVisible(!datePickerVisible);
+                  setShowDeadlineInputs(!showDeadlineInputs);
+                }}
                 sx={{ marginLeft: 0 }}
                 labelPlacement="start"
                 control={<Switch />}
@@ -63,24 +72,13 @@ export const CreateTodo = function ({ listName, showModal, setShowModal }: Input
               />
             </div>
             {showDeadlineInputs && (
-              <div className={classes.deadlineInputs}>
-                <LocalizationProvider dateAdapter={AdapterDayjs}>
-                  <DateTimePicker
-                    showDaysOutsideCurrentMonth={true}
-                    inputFormat="DD/MM/YYYY HH:mm"
-                    ampm={false}
-                    mask={"__/__/____ __:__"}
-                    disablePast={true}
-                    renderInput={(props) => (
-                      <TextField {...props} inputProps={{ ...props.inputProps, placeholder: "ДД/ММ/ГГГГ ЧЧ:ММ" }} />
-                    )}
-                    label="Выберите дату"
-                    value={deadlineInput}
-                    onChange={(newValue) => {
-                      setDeadlineInput(newValue);
-                    }}
-                  />
-                </LocalizationProvider>
+              <div>
+                {deadlineInput && <div>Дедлайн: {deadlineInput}</div>}
+                {datePickerVisible && (
+                  <div className={classes.deadlineInputs}>
+                    <DatePicker setDatePickerVisible={setDatePickerVisible} setDeadlineInput={setDeadlineInput} />
+                  </div>
+                )}
               </div>
             )}
             <Button variant="contained" onClick={createNewTodo}>

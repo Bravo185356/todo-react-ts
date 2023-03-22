@@ -1,0 +1,18 @@
+.monthListBlock {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    row-gap: 10px;
+}
+.month {
+    padding: 4px;
+    border-radius: 6px;
+    cursor: pointer;
+    &:hover {
+        background-color: white;
+    }
+}
+@media (max-width: 370px) {
+    .monthListBlock {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}

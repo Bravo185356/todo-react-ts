@@ -1,4 +1,4 @@
-.statBlock {
+.body {
     background-color: rgb(245, 245, 245);
     height: 100%;
     padding: 20px;
@@ -7,6 +7,7 @@
     flex-direction: column;
     row-gap: 15px;
     border-left: 1px solid rgb(197, 197, 197);
+    flex: 0 1 20%;
 }
 .success {
     letter-spacing: 1px;

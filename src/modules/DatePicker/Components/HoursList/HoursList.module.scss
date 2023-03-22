@@ -1,0 +1,13 @@
+.hourListBlock {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    row-gap: 10px;
+}
+.hour {
+    padding: 4px;
+    cursor: pointer;
+    &:hover {
+        background-color: white;
+        border-radius: 6px;
+    }
+}
