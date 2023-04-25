@@ -23,8 +23,8 @@ export const LoginForm = function ({ loginPopup, setLoginPopup, setRegistrationP
     if (email && password) {
       const result = await LoginApi.login(loginInputs);
       if (!result.error) {
-        localStorage.setItem("idToken", JSON.stringify(result.idToken));
-        localStorage.setItem("refreshToken", JSON.stringify(result.refreshToken));
+        localStorage.setItem("idToken", result.idToken);
+        localStorage.setItem("refreshToken", result.refreshToken);
 
         const userInfo = await LoginApi.getInfo(result.idToken);
 

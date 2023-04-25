@@ -8,6 +8,7 @@ import { increaseLevelCount } from "../../store/statistic/statisticSlice";
 import { modalStyles, settingButtonStyles } from "../../MuiStyles";
 import { changeTodo, removeTodo, setExpired } from "../../store/todo/todoSlice";
 import { toggleComplete } from "../../store/todo/todoSlice";
+import { convertDate } from "../../service/convertDate";
 
 interface TodoItemProps {
   todo: ITodo;
@@ -16,20 +17,15 @@ interface TodoItemProps {
 }
 
 export const TodoItem = function ({ todo, listName = "", optionMenu = true }: TodoItemProps) {
-  const [isExpired, setIsExpired] = useState(false);
   const [optionsMenu, setOptionsMenu] = useState<null | HTMLElement>(null);
   const [modalShow, setModalShow] = useState(false);
   const [editTodo, setEditTodo] = useState(false);
-  const [todoName, setTodoName] = useState(todo.name);
-  // Двусторонее связывание с изменяющим название инпутом
+  const [newTodoName, setNewTodoName] = useState(todo.name);
+  
   const open = Boolean(optionsMenu);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (todo.isExpired) {
-      setIsExpired(true);
-      return;
-    }
     const timerID = setInterval(() => checkDeadline(), 5000);
     return () => clearInterval(timerID);
   }, [todo.isExpired]);
@@ -39,25 +35,17 @@ export const TodoItem = function ({ todo, listName = "", optionMenu = true }: To
     dispatch(toggleComplete({ todo, listName }));
     setModalShow(false);
   }
-  function completedButtonClick() {
-    if (!todo.completed) {
-      setModalShow(true);
-    }
-  }
   function toggleEdit() {
     setEditTodo(true);
     setOptionsMenu(null);
   }
   function saveChanges() {
     setEditTodo(false);
-    dispatch(changeTodo({ listName, newTodoName: todoName, todo: todo }));
-  }
-  function convertDate() {
-    return todo.deadline!.split(",")[0].split(".").reverse().join("-") + "T" + todo.deadline!.split(" ")[1];
+    dispatch(changeTodo({ listName, newTodoName, todo }));
   }
   function checkDeadline() {
     if (todo.deadline) {
-      const date = convertDate();
+      const date = convertDate(todo.deadline);
       if (Date.parse(date) <= Date.now()) {
         dispatch(setExpired({ listName, todo }));
       }
@@ -67,10 +55,10 @@ export const TodoItem = function ({ todo, listName = "", optionMenu = true }: To
   return (
     <div className={classes.todoWrapper}>
       <div className={classes.todoInfo}>
-        {isExpired && <div className={classes.expired}>Просрочено</div>}
+        {todo.isExpired && <div className={classes.expired}>Просрочено</div>}
         {editTodo ? (
           <div className={classes.changeNameBlock}>
-            <Input onChange={(e) => setTodoName(e.target.value)} value={todoName} />
+            <Input onChange={(e) => setNewTodoName(e.target.value)} value={newTodoName} />
             <Button variant="contained" sx={{ color: "white", p: "0", minWidth: "34px" }} onClick={saveChanges}>
               <Check />
             </Button>
@@ -92,7 +80,7 @@ export const TodoItem = function ({ todo, listName = "", optionMenu = true }: To
         </>
       )}
       <Button
-        onClick={completedButtonClick}
+        onClick={() => setModalShow(true)}
         color={todo.completed ? "success" : "error"}
         variant="contained"
         disabled={todo.completed ? true : false}

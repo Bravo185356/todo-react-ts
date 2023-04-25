@@ -76,7 +76,7 @@ export default function DatePicker({ setDeadlineInput, setDatePickerVisible }: D
               setDatePickerVisible={setDatePickerVisible}
             />
           )}
-        </div>
+        </div> {/* вынести в отдельную функцию */}
       </div>
     </div>
   );

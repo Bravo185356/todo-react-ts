@@ -50,7 +50,6 @@ export const CreateTodo = function ({ listName, showModal, setShowModal }: Input
         <div className={classes.wrapper}>
           <div className={classes.body}>
             <div className={classes.title}>Добавьте что-нибудь в список</div>
-            <div>{listName}</div>
             <Input
               value={inputName}
               onChange={(e) => setInputName(e.target.value)}

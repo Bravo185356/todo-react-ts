@@ -45,7 +45,7 @@ export default function App() {
     <BrowserRouter>
       {pageIsLoaded ? (
         <div className="App">
-          <Header setLoginPopup={setLoginPopup} />
+          <Header />
           <div className="wrapper">
             {isLogined && <SidebarLists />}
             <LoginForm loginPopup={loginPopup} setLoginPopup={setLoginPopup} setRegistrationPopup={setRegistrationPopup} />
@@ -53,7 +53,7 @@ export default function App() {
             <div className="content-wrapper">
               <Routes>
                 <Route path="/" element={<MainPage setLoginPopup={setLoginPopup} />} />
-                <Route path="/:listName" element={<TodoListPage />} />
+                <Route path="/:listName" element={<TodoListPage setLoginPopup={setLoginPopup} />} />
                 <Route path="/completed" element={<CompletedTodosPage />} />
               </Routes>
             </div>

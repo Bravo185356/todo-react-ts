@@ -1,17 +1,12 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import classes from "./Header.module.scss";
-import { Button } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import { Menu, MenuItem } from "@mui/material";
 import { toggleLogin } from "../../store/userInfo/userInfoSlice";
 import PersonIcon from "@mui/icons-material/Person";
 
-interface HeaderProps {
-  setLoginPopup: Function;
-}
-
-export default function Header({ setLoginPopup }: HeaderProps) {
+export default function Header() {
   const [dropMenu, setDropMenu] = useState<null | HTMLElement>(null);
 
   const userInfo = useAppSelector((state) => state.userInfo.userInfo);

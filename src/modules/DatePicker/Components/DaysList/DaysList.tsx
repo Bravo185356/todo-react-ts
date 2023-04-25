@@ -46,7 +46,7 @@ export default function DaysList({
     <div>
       <div className={classes.weekDays}>
         {weekDays.map((weekDay) => {
-          return <div className={classes.weekDay}>{weekDay}</div>;
+          return <div className={classes.weekDay} key={weekDay}>{weekDay}</div>;
         })}
       </div>
       <div className={classes.days}>

@@ -23,8 +23,6 @@ body,
     justify-content: space-between;
 }
 .content-wrapper {
-    display: flex;
-    justify-content: center;
     flex: 1 1 auto;
     padding: 20px 60px;
 }
@@ -37,9 +35,6 @@ body,
 .createAccount {
     color: rgb(73, 73, 241);
     cursor: pointer;
-}
-.mainBlock {
-    flex: 0 1 768px;
 }
 @media (max-width: 768px) {
     .content-wrapper {

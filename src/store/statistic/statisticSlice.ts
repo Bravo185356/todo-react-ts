@@ -1,4 +1,5 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { setStatsPayload } from "./statisticSliceTypes";
 
 export interface StatisticState {
   currentLevelCount: number;
@@ -35,7 +36,7 @@ const statistic = createSlice({
         JSON.stringify({ level: state.level, levelCount: state.currentLevelCount })
       );
     },
-    setStats(state, actions) {
+    setStats(state, actions: PayloadAction<setStatsPayload>) {
         state.level = actions.payload.level
         state.currentLevelCount = actions.payload.levelCount
     }
