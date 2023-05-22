@@ -5,7 +5,7 @@ import { ITodo } from "../../../../models";
 import { addNewTodo } from "../../../../store/todo/todoSlice";
 import { useDispatch } from "react-redux";
 import { modalStyles } from "../../../../MuiStyles";
-import DatePicker from "../../../../modules/DatePicker/DatePicker";
+import DatePicker from "../../../DatePicker/DatePicker";
 
 interface InputProps {
   listName: string;

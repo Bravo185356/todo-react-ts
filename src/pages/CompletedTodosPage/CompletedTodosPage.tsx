@@ -1,10 +1,11 @@
 import { useMemo } from "react";
-import { useAppSelector } from "../../../../hooks/hooks";
-import { TodoItem } from "../../../../components/TodoItem/TodoItem";
+import { useAppSelector } from "../../hooks/hooks";
+import { TodoItem } from "../../components/TodoItem/TodoItem";
 import classes from "./CompletedTodos.module.scss";
 
 export const CompletedTodosPage = function () {
   const todos = useAppSelector((state) => state.todo.value);
+
   const completedTodos = useMemo(() => {
     const completedTodos = [];
     for (const list of todos) {
@@ -12,6 +13,7 @@ export const CompletedTodosPage = function () {
     }
     return completedTodos;
   }, [todos]);
+  
   return (
     <div className={classes.CompletedTodoWrapper}>
       {completedTodos.length === 0 ? (

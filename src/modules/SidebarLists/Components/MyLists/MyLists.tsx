@@ -1,5 +1,5 @@
 import linkClasses from "../../Styles/linkStyles.module.scss";
-import classes from "./SidebarLists.module.scss";
+import classes from "./MyLists.module.scss";
 import { Link, useLocation } from "react-router-dom";
 import { useAppSelector } from "../../../../hooks/hooks";
 import { useEffect, useState } from "react";
@@ -9,7 +9,7 @@ import { Menu, MenuItem } from "@mui/material";
 import ListItem from "../ListItem/ListItem";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 
-export const SidebarLists = function () {
+export const MyLists = function () {
   const [showCreateListModal, setShowCreateListModal] = useState(false);
   const [dropMenu, setDropMenu] = useState<null | HTMLElement>(null);
   const [currentLink, setCurrentLink] = useState("");

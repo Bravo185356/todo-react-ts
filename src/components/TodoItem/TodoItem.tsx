@@ -21,13 +21,15 @@ export const TodoItem = function ({ todo, listName = "", optionMenu = true }: To
   const [modalShow, setModalShow] = useState(false);
   const [editTodo, setEditTodo] = useState(false);
   const [newTodoName, setNewTodoName] = useState(todo.name);
-  
+
   const open = Boolean(optionsMenu);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    const timerID = setInterval(() => checkDeadline(), 5000);
-    return () => clearInterval(timerID);
+    if (todo.deadline && !todo.completed) {
+      const timerID = setInterval(() => checkDeadline(), 5000);
+      return () => clearInterval(timerID);
+    }
   }, [todo.isExpired]);
 
   function changeCompletedStatus() {
@@ -44,11 +46,9 @@ export const TodoItem = function ({ todo, listName = "", optionMenu = true }: To
     dispatch(changeTodo({ listName, newTodoName, todo }));
   }
   function checkDeadline() {
-    if (todo.deadline) {
-      const date = convertDate(todo.deadline);
-      if (Date.parse(date) <= Date.now()) {
-        dispatch(setExpired({ listName, todo }));
-      }
+    const date = convertDate(todo.deadline!);
+    if (Date.parse(date) <= Date.now()) {
+      dispatch(setExpired({ listName, todo }));
     }
   }
 

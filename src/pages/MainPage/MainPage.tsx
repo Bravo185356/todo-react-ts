@@ -1,6 +1,5 @@
-import { useAppSelector } from "../../../../hooks/hooks";
-import classes from "./MainPage.module.scss";
-import NotAuth from "../../../../components/NotAuthPage/NotAuth";
+import { useAppSelector } from "../../hooks/hooks";
+import NotAuth from "../../components/NotAuth/NotAuth";
 
 interface MainPageProps {
   setLoginPopup: Function;

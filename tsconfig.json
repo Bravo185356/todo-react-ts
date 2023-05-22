@@ -3,6 +3,9 @@
     "plugins": [{ "name": "typescript-plugin-css-modules" }],
     "useUnknownInCatchVariables": false,
     "target": "es5",
+    "paths": {
+      "@": ["./src"],
+    },
     "lib": [
       "dom",
       "dom.iterable",

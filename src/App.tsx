@@ -1,17 +1,17 @@
 import "./App.scss";
 import { useState, useEffect } from "react";
 import Header from "./components/Header/Header";
-import { SidebarLists } from "./modules/SidebarLists";
+import { Sidebar } from "./modules/SidebarLists";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Statistic from "./modules/StatisticSidebar/Components/Statistic/Statistic";
 import { useAppDispatch, useAppSelector } from "./hooks/hooks";
 import { setState } from "./store/todo/todoSlice";
-import MainPage from "./pages/MainPage/Components/MainPage/MainPage";
-import { CompletedTodosPage } from "./pages/CompletedTodosPage/Components/CompletedTodosPage/CompletedTodosPage";
+import MainPage from "./pages/MainPage/MainPage";
+import { CompletedTodosPage } from "./pages/CompletedTodosPage/CompletedTodosPage";
 import { setUserInfo, toggleLogin } from "./store/userInfo/userInfoSlice";
 import { RegistrationForm } from "./modules/RegistrationForm";
 import { LoginForm, LoginApi } from "./modules/LoginForm";
-import TodoListPage from "./pages/TodoListPage/Components/TodoListPage/TodoListPage";
+import TodoListPage from "./pages/TodoListPage/TodoListPage";
 import {changeScreenWidth} from "./store/screenWidth/screenWidthSlice";
 
 export default function App() {
@@ -47,7 +47,7 @@ export default function App() {
         <div className="App">
           <Header />
           <div className="wrapper">
-            {isLogined && <SidebarLists />}
+            {isLogined && <Sidebar />}
             <LoginForm loginPopup={loginPopup} setLoginPopup={setLoginPopup} setRegistrationPopup={setRegistrationPopup} />
             <RegistrationForm registrationPopup={registrationPopup} setRegistrationPopup={setRegistrationPopup} />
             <div className="content-wrapper">

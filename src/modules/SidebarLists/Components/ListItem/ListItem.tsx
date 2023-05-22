@@ -1,13 +1,13 @@
 import { Link, useNavigate } from "react-router-dom";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
-import classes from "../../Styles/linkStyles.module.scss";
+import classes from "./ListItem.module.scss";
 import { removeList } from "../../../../store/todo/todoSlice";
 import { useAppDispatch } from "../../../../hooks/hooks";
 
 interface ListItemProps {
-    listName: string,
-    setCurrentLink: Function,
-    currentLink: string
+  listName: string;
+  setCurrentLink: Function;
+  currentLink: string;
 }
 
 export default function ListItem({ listName, setCurrentLink, currentLink }: ListItemProps) {
@@ -15,6 +15,7 @@ export default function ListItem({ listName, setCurrentLink, currentLink }: List
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+
   function deleteTodoList(listName: string) {
     dispatch(removeList(listName));
     navigate("/");

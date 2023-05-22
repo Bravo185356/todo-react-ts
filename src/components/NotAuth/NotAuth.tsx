@@ -1,4 +1,3 @@
-import React from "react";
 import classes from "./NotAuth.module.scss";
 import { Button } from "@mui/material";
 

@@ -4,10 +4,11 @@ import { useParams } from "react-router-dom";
 import Button from "@mui/material/Button";
 import { ITodo } from "../../../../models";
 import { useAppSelector } from "../../../../hooks/hooks";
-interface TodoListProps {
-  setShowModal: Function;
-}
-export const TodoList = function ({ setShowModal }: TodoListProps) {
+import { CreateTodo } from "../CreateTodo/CreateTodo";
+import { useState } from "react";
+
+export const TodoList = function () {
+  const [showModal, setShowModal] = useState(false);
   const params = useParams();
 
   const todos: ITodo[] = useAppSelector((state) => {
@@ -26,6 +27,7 @@ export const TodoList = function ({ setShowModal }: TodoListProps) {
       ) : (
         <div className={classes.emptyText}>Тут пусто</div>
       )}
+      <CreateTodo listName={params.listName!} setShowModal={setShowModal} showModal={showModal} />
     </div>
   );
 };

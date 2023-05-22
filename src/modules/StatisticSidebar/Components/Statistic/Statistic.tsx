@@ -3,7 +3,7 @@ import classes from "./Statistic.module.scss";
 import { useAppSelector, useAppDispatch } from "../../../../hooks/hooks";
 import { resetLevelCount, increaseLevel, setStats } from "../../../../store/statistic/statisticSlice";
 import { LinearProgress } from "@mui/material";
-// не должна отображаться пока пользователь не залогинился
+
 export default function Statistic() {
   const currentLevelCount: number = useAppSelector((state) => state.statistic.currentLevelCount);
   const level = useAppSelector((state) => state.statistic.level);
@@ -19,17 +19,20 @@ export default function Statistic() {
     }
     return totalNumber;
   }, [todos]);
+
   useEffect(() => {
     if (currentLevelCount === level * 5) {
       dispatch(increaseLevel());
       dispatch(resetLevelCount());
     }
   }, [currentLevelCount, level, dispatch]);
+
   useEffect(() => {
     if (localStorage.getItem("Statistic")) {
       dispatch(setStats(JSON.parse(localStorage.getItem("Statistic")!)));
     }
   }, [dispatch]);
+  
   return (
     <div className={classes.body}>
       <div>Незавершенных задач: {totalUncompletedTodo}</div>
